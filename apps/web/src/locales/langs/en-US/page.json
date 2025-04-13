@@ -123,5 +123,48 @@
         "delete": "Delete"
       }
     }
+  },
+  "stree": {
+    "title": "Service Tree",
+    "node": {
+      "info": "Node Information",
+      "title": "Node Name",
+      "desc": "Node Description",
+      "isLeaf": "Is Leaf Node",
+      "pId": "Parent Node ID",
+      "editTitle": "Edit Node Information",
+      "prompt": {
+        "title": "Please enter the node name",
+        "desc": "Please enter the node description",
+        "treeLevel": "Please enter the node tree level",
+        "opsAdmin": "Please assign the ops admin",
+        "developers": "Please assign the developers",
+        "testers": "Please assign the testers",
+        "devManager": "Please assign the dev manager",
+        "pId": "Please select the parent node"
+      },
+      "tabs": {
+        "nodeDetail": "Node Detail",
+        "hostList": "Host List",
+        "nodePath": "Node Path",
+        "nodeDesc": "Node Description",
+        "treeLevel": "Tree Level",
+        "opsAdmin": "Ops Admin",
+        "developers": "Developers",
+        "testers": "Testers",
+        "devManager": "Dev Manager"
+      },
+      "button": {
+        "create": "Create Node",
+        "createTop": "Create Top Node",
+        "edit": "Edit Info"
+      },
+      "notification": {
+        "load_failed": "Load node failed",
+        "load_success": "Load node success",
+        "createSuccess": "Create node success",
+        "createFailed": "Create node failed"
+      }
+    }
   }
 }

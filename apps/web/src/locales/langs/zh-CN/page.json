@@ -123,5 +123,48 @@
         "delete": "删除日志"
       }
     }
+  },
+  "stree": {
+    "title": "服务树",
+    "node": {
+      "info": "节点信息",
+      "title": "节点名称",
+      "desc": "节点描述",
+      "isLeaf": "是否叶子节点",
+      "pId": "父节点ID",
+      "editTitle": "编辑节点信息",
+      "prompt": {
+        "title": "请输入节点名称",
+        "desc": "请输入节点描述",
+        "treeLevel": "请输入节点树层级",
+        "opsAdmin": "请分配运维人员",
+        "developers": "请分配研发人员",
+        "testers": "请分配测试人员",
+        "devManager": "请分配研发负责人",
+        "pId": "请选择父节点"
+      },
+      "tabs": {
+        "nodeDetail": "节点详情",
+        "hostList": "主机列表",
+        "nodePath": "节点路径",
+        "nodeDesc": "节点描述",
+        "treeLevel": "树层级",
+        "opsAdmin": "运维人员",
+        "developers": "研发人员",
+        "testers": "测试人员",
+        "devManager": "研发负责人"
+      },
+      "button": {
+        "create": "新增节点",
+        "createTop": "新增顶级节点",
+        "edit": "编辑信息"
+      },
+      "notification": {
+        "load_failed": "加载节点失败",
+        "load_success": "加载节点成功",
+        "createSuccess": "新增节点成功",
+        "createFailed": "新增节点失败"
+      }
+    }
   }
 }

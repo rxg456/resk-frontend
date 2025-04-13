@@ -3,6 +3,12 @@
     "placeholder": "Search",
     "optTime": "Operating time"
   },
+  "placeholder": {
+    "input": "Please enter"
+  },
+  "formRules": {
+    "required": "Required"
+  },
   "tree": {
     "select_all": "Select All",
     "unselect_all": "Cancel Select",

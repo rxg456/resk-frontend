@@ -17,6 +17,7 @@ const getTitle = computed(() =>
 );
 
 const [BaseForm, baseFormApi] = useVbenForm({
+  // 不显示默认操作按钮
   showDefaultActions: false,
   // 所有表单项共用，可单独在表单内覆盖
   commonConfig: {
@@ -57,7 +58,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       dependencies: {
         triggerFields: ['isCreate'],
         // 根据isCreate计算属性决定是否显示
-        if: () => isCreate.value // 完全不渲染组件
+        if: () => isCreate.value, // 完全不渲染组件
         // 或者用 show: () => isCreate.value // CSS隐藏但保留组件实例
       },
       help: '默认密码: 123456',
@@ -128,7 +129,6 @@ const [Drawer, drawerApi] = useVbenDrawer({
   onCancel() {
     drawerApi.close();
   },
-
   async onConfirm() {
     // 校验输入的数据
     const validate = await baseFormApi.validate();
@@ -153,7 +153,6 @@ const [Drawer, drawerApi] = useVbenDrawer({
         {
           timeout: 1000,
           position: POSITION.TOP_RIGHT,
-          toastClassName: 'toastification-success',
         },
       );
       drawerApi.setData({ needRefresh: true });
@@ -183,14 +182,14 @@ const [Drawer, drawerApi] = useVbenDrawer({
       //   data.value.row.meta.authority = authority.join(',');
       // }
       if (!isCreate.value) {
-      // 在编辑模式下处理数据
-        
+        // 在编辑模式下处理数据
+
         // 处理角色数据，确保roleIds正确赋值
         if (data.value?.row?.roles && Array.isArray(data.value.row.roles)) {
-            data.value.row.roleIds = data.value.row.roles.map(
-              (role: any) => role.id,
-            );
-          }
+          data.value.row.roleIds = data.value.row.roles.map(
+            (role: any) => role.id,
+          );
+        }
       }
 
       // 为表单赋值

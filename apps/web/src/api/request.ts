@@ -84,6 +84,31 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     },
   });
 
+  // 添加成功响应的处理拦截器
+  // code 为 0 时且 msg 存在时，显示成功提示
+  client.addResponseInterceptor({
+    fulfilled: (response) => {
+      try {
+        const { data: responseData } = response;
+        // 检查原始响应中的data部分
+        const originalData = responseData;
+        if (responseData['code'] === 0 && responseData['msg']) {
+          // 显示成功提示
+          toast.success(originalData['msg'], {
+            timeout: 3000,
+            position: POSITION.TOP_RIGHT,
+          });
+        }
+      } catch (error) {
+        toast.error('处理成功响应提示时出错:', {
+          timeout: 5000,
+          position: POSITION.TOP_RIGHT,
+        });
+      }
+      return response;
+    },
+  });
+
   // 处理返回的响应数据格式
   client.addResponseInterceptor(
     defaultResponseInterceptor({
@@ -116,14 +141,14 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
 
       // 如果没有错误信息，则会根据状态码进行提示
       toast.error(errorMessage || msg, {
-        timeout: 5000,
+        timeout: 3000,
         position: POSITION.TOP_CENTER,
       });
 
       if (code == 10005) {
         setTimeout(() => {
           doReAuthenticate();
-        }, 1000);
+        }, 3000);
       }
     }),
   );

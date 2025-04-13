@@ -3,6 +3,12 @@
     "placeholder": "搜索",
     "optTime": "操作时间"
   },
+  "placeholder": {
+    "input": "请输入{label}"
+  },
+  "formRules": {
+    "required": "必填"
+  },
   "tree": {
     "select_all": "选择全部",
     "unselect_all": "取消选择",
