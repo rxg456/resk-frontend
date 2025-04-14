@@ -126,6 +126,7 @@
   },
   "stree": {
     "title": "服务树",
+    "pageTitle": "服务树节点信息",
     "node": {
       "info": "节点信息",
       "title": "节点名称",

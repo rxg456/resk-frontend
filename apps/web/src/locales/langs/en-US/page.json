@@ -126,6 +126,7 @@
   },
   "stree": {
     "title": "Service Tree",
+    "pageTitle": "Service Tree Node Information",
     "node": {
       "info": "Node Information",
       "title": "Node Name",

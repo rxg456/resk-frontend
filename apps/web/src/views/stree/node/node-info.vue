@@ -15,8 +15,22 @@ const props = defineProps({
 
 const isValidArray = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
 
+// emit事件定义
+const emit = defineEmits(['refresh-tree']);
+
 const [Drawer, drawerApi] = useVbenDrawer({
   connectedComponent: EditStreeNodeDrawer,
+  // 监听drawer关闭事件
+  onOpenChange: (open) => {
+    if (!open) {
+      // drawer关闭时检查是否需要刷新
+      const drawerData = drawerApi.getData();
+      if (drawerData?.needRefresh) {
+        // 通知父组件刷新树
+        emit('refresh-tree');
+      }
+    }
+  }
 });
 
 function openDrawer() {
@@ -64,7 +78,7 @@ function openDrawer() {
       <ElDescriptionsItem
         :label="$t('page.stree.node.tabs.opsAdmin')"
         label-align="center"
-        align="center"
+        align="left"
       >
         <EllipsisText :max-width="300">
           <template v-if="isValidArray(nodeData.ops_admin_users)">
@@ -83,7 +97,7 @@ function openDrawer() {
       <ElDescriptionsItem
         :label="$t('page.stree.node.tabs.devManager')"
         label-align="center"
-        align="center"
+        align="left"
       >
         <EllipsisText :max-width="300">
           <template v-if="isValidArray(nodeData.dev_manager_users)">
@@ -102,7 +116,7 @@ function openDrawer() {
       <ElDescriptionsItem
         :label="$t('page.stree.node.tabs.developers')"
         label-align="center"
-        align="center"
+        align="left"
       >
         <EllipsisText :max-width="300">
           <template v-if="isValidArray(nodeData.developers)">
@@ -121,7 +135,7 @@ function openDrawer() {
       <ElDescriptionsItem
         :label="$t('page.stree.node.tabs.testers')"
         label-align="center"
-        align="center"
+        align="left"
       >
         <EllipsisText :max-width="300">
           <template v-if="isValidArray(nodeData.testers)">

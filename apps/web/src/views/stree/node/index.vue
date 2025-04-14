@@ -38,7 +38,7 @@ const [Modal, modalApi] = useVbenModal({
       const modalData = modalApi.getData();
       if (modalData?.needRefresh) {
         // 调用树组件的刷新方法
-        treeRef.value?.refreshTree();
+        refreshTree();
       }
     }
   },
@@ -53,10 +53,15 @@ function handleCreate(isCreateTop: boolean, pId?: number, level?: number) {
   modalApi.setData({ isCreateTop, pId, level });
   modalApi.open();
 }
+
+function refreshTree() {
+  treeRef.value?.refreshTree();
+  selectedNode.value = "";
+}
 </script>
 
 <template>
-  <Page title="服务树节点信息">
+  <Page :title="$t('page.stree.pageTitle')">
     <!-- 在extra插槽中添加按钮 -->
     <template #extra>
       <VbenButton @click="handleCreate(true)">
@@ -77,7 +82,10 @@ function handleCreate(isCreateTop: boolean, pId?: number, level?: number) {
         <ReskTabs :tabs="chartTabs">
           <template #nodeDetail>
             <!-- 传递节点数据给NodeInfo -->
-            <NodeInfo :node-data="selectedNode" />
+            <NodeInfo 
+              :node-data="selectedNode"
+              @refresh-tree="refreshTree"
+            />
           </template>
           <template #hostList>
             <HostList />

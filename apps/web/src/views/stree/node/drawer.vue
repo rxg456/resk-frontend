@@ -43,19 +43,15 @@ const [Drawer, drawerApi] = useVbenDrawer({
 
     // 获取表单数据
     const values = await nodeFormApi.getValues();
-    console.log('values8888888888888888', values);
 
     try {
       if (data.value.data.id) {
         await updateStreeNodeApi(data.value.data.id, values);
       }
-
+      // 需要刷新tree的标志
       drawerApi.setData({ needRefresh: true });
     } catch {
-      toast.error($t('ui.notification.update_success'), {
-        timeout: 3000,
-        position: POSITION.TOP_RIGHT,
-      });
+
     } finally {
       drawerApi.close();
       setLoading(false);
