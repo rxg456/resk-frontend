@@ -135,6 +135,8 @@
       "hostIp": "主机IP",
       "streeNodePath": "节点路径",
       "assignNodeStatus": "分配节点状态",
+      "availableHosts": "可用主机",
+      "boundHosts": "已绑定主机",
       "columns": {
         "hostName": "主机名称",
         "hostIp": "主机IP",
@@ -176,7 +178,9 @@
       "button": {
         "create": "新增主机",
         "edit": "编辑主机",
-        "delete": "删除主机"
+        "delete": "删除主机",
+        "bind": "绑定主机",
+        "unbind": "解绑主机"
       },
       "status": {
         "title": "主机状态",
@@ -194,6 +198,8 @@
       }
     },
     "node": {
+      "module": "节点",
+      "bindHost": "绑定主机",
       "info": "节点信息",
       "title": "节点名称",
       "desc": "节点描述",

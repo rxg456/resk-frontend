@@ -135,6 +135,8 @@
       "hostIp": "Host IP",
       "streeNodePath": "Node Path",
       "assignNodeStatus": "Assign Node Status",
+      "availableHosts": "Available Hosts",
+      "boundHosts": "Bound Hosts",
       "columns": {
         "hostName": "Host Name",
         "hostIp": "Host IP",
@@ -176,7 +178,9 @@
       "button": {
         "create": "Create Host",
         "edit": "Edit Host",
-        "delete": "Delete Host"
+        "delete": "Delete Host",
+        "bind": "Bind Host",
+        "unbind": "Unbind Host"
       },
       "status": {
         "title": "Host Status",
@@ -194,6 +198,8 @@
       }
     },
     "node": {
+      "module": "Node",
+      "bindHost": "Bind Host",
       "info": "Node Information",
       "title": "Node Name",
       "desc": "Node Description",

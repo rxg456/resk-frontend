@@ -10,6 +10,16 @@ export const getHostListApi = async (param: any) => {
 };
 
 /**
+ * 获取树节点主机列表
+ * @param nodeId
+ * @param param
+ * @returns
+ */
+export const getHostListByNodeIdApi = async (nodeId: number, param: any) => {
+  return requestClient.get(`/host/stree-node/${nodeId}/list`, param);
+};
+
+/**
  * 删除主机
  * @param hostId
  */

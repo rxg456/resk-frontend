@@ -56,7 +56,7 @@ function handleCreate(isCreateTop: boolean, pId?: number, level?: number) {
 
 function refreshTree() {
   treeRef.value?.refreshTree();
-  selectedNode.value = "";
+  selectedNode.value = '';
 }
 </script>
 
@@ -82,13 +82,10 @@ function refreshTree() {
         <ReskTabs :tabs="chartTabs">
           <template #nodeDetail>
             <!-- 传递节点数据给NodeInfo -->
-            <NodeInfo 
-              :node-data="selectedNode"
-              @refresh-tree="refreshTree"
-            />
+            <NodeInfo :node-data="selectedNode" @refresh-tree="refreshTree" />
           </template>
           <template #hostList>
-            <HostList />
+            <HostList :node-data="selectedNode" />
           </template>
         </ReskTabs>
       </ElCard>

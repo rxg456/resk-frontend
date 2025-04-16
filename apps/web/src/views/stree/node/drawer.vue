@@ -51,7 +51,6 @@ const [Drawer, drawerApi] = useVbenDrawer({
       // 需要刷新tree的标志
       drawerApi.setData({ needRefresh: true });
     } catch {
-
     } finally {
       drawerApi.close();
       setLoading(false);

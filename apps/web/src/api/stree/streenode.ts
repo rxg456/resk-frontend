@@ -58,3 +58,17 @@ export const deleteStreeNodeApi = async (id: number) => {
 export const updateStreeNodeApi = async (id: number, data: any) => {
   return requestClient.put(`/stree/${id}`, data);
 };
+
+/**
+ * 绑定主机到节点
+ *
+ * @param nodeId 节点id
+ * @param hostIds 主机id
+ * @returns
+ */
+export const bindHostToStreeNodeApi = async (
+  nodeId: number,
+  hostIds: number[],
+) => {
+  return requestClient.post(`/stree/${nodeId}/bindHost`, { hostIds });
+};

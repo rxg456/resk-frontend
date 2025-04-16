@@ -252,7 +252,7 @@ async function handleDelete(row: any) {
       <template #osType="{ row }">
         <el-tag type="primary" size="large">
           {{
-            osTypeList.find((item) => item.value === row.osType)?.label ||
+            osTypeList.find((item: any) => item.value === row.osType)?.label ||
             $t('ui.text.unknown')
           }}
         </el-tag>
@@ -274,7 +274,7 @@ async function handleDelete(row: any) {
           size="large"
         >
           {{
-            statusList.find((item) => item.value === row.status)?.label ||
+            statusList.find((item: any) => item.value === row.status)?.label ||
             $t('ui.text.unknown')
           }}
         </el-tag>
@@ -283,7 +283,7 @@ async function handleDelete(row: any) {
       <template #env="{ row }">
         <el-tag type="primary" size="large">
           {{
-            envList.find((item) => item.value === row.env)?.label ||
+            envList.find((item: any) => item.value === row.env)?.label ||
             $t('ui.text.unknown')
           }}
         </el-tag>
@@ -292,8 +292,9 @@ async function handleDelete(row: any) {
       <template #assignNodeStatus="{ row }">
         <el-tag type="primary" size="large">
           {{
-            nodeStatusList.find((item) => item.value === row.assignNodeStatus)
-              ?.label || $t('ui.text.unknown')
+            nodeStatusList.find(
+              (item: any) => item.value === row.assignNodeStatus,
+            )?.label || $t('ui.text.unknown')
           }}
         </el-tag>
       </template>
