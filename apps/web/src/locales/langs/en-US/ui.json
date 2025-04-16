@@ -60,6 +60,7 @@
     "no_auth": "Please select the permissions to be assigned"
   },
   "text": {
-    "do_you_want_delete": "Do you want to delete the {moduleName}?"
+    "do_you_want_delete": "Do you want to delete the {moduleName}?",
+    "unknown": "Unknown"
   }
 }

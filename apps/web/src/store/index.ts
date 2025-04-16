@@ -1,5 +1,6 @@
-import { $t } from '@vben/locales';
 import { computed } from 'vue';
+
+import { $t } from '#/locales';
 
 export * from './auth';
 export * from './user';
@@ -34,10 +35,10 @@ export interface Timestamp {
 
 /** 菜单类型 */
 export enum MenuType {
+  /** BUTTON - 按钮 */
+  BUTTON = 'BUTTON',
   /** FOLDER - 菜单夹 */
   FOLDER = 'FOLDER',
   /** MENU - 菜单项 */
   MENU = 'MENU',
-  /** BUTTON - 按钮 */
-  BUTTON = 'BUTTON',
 }

@@ -127,6 +127,72 @@
   "stree": {
     "title": "服务树",
     "pageTitle": "服务树节点信息",
+    "host": {
+      "module": "主机",
+      "menu": "主机管理",
+      "gridTitle": "主机管理",
+      "hostName": "主机名称",
+      "hostIp": "主机IP",
+      "streeNodePath": "节点路径",
+      "assignNodeStatus": "分配节点状态",
+      "columns": {
+        "hostName": "主机名称",
+        "hostIp": "主机IP",
+        "cpu": "CPU核数",
+        "memory": "内存G",
+        "nodeExporterPort": "metrics端口",
+        "osType": "操作系统",
+        "osInfo": "操作系统信息",
+        "vmType": "主机类型",
+        "description": "描述",
+        "vendor": "供应商",
+        "zone": "区域",
+        "status": "主机状态",
+        "env": "主机环境",
+        "streeNodePath": "节点路径",
+        "assignNodeStatus": "分配节点状态"
+      },
+      "osType": {
+        "linux": "Linux",
+        "windows": "Windows"
+      },
+      "vmType": {
+        "cloud": "云主机",
+        "virtual": "虚拟机",
+        "physical": "物理机"
+      },
+      "vendor": {
+        "aliyun": "阿里云",
+        "tencent": "腾讯云",
+        "huawei": "华为云",
+        "aws": "AWS",
+        "VMware": "VMware",
+        "other": "其他"
+      },
+      "nodeStatus": {
+        "1": "未分配",
+        "2": "已分配"
+      },
+      "button": {
+        "create": "新增主机",
+        "edit": "编辑主机",
+        "delete": "删除主机"
+      },
+      "status": {
+        "title": "主机状态",
+        "1": "正常",
+        "2": "异常",
+        "3": "资源不足",
+        "4": "资源闲置"
+      },
+      "env": {
+        "title": "主机环境",
+        "1": "开发环境",
+        "2": "测试环境",
+        "3": "预发环境",
+        "4": "生产环境"
+      }
+    },
     "node": {
       "info": "节点信息",
       "title": "节点名称",

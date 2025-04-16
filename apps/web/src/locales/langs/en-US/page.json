@@ -127,6 +127,72 @@
   "stree": {
     "title": "Service Tree",
     "pageTitle": "Service Tree Node Information",
+    "host": {
+      "module": "Host",
+      "menu": "Host Management",
+      "gridTitle": "Host Management",
+      "hostName": "Host Name",
+      "hostIp": "Host IP",
+      "streeNodePath": "Node Path",
+      "assignNodeStatus": "Assign Node Status",
+      "columns": {
+        "hostName": "Host Name",
+        "hostIp": "Host IP",
+        "cpu": "CPU",
+        "memory": "Memory",
+        "nodeExporterPort": "Metrics Port",
+        "osType": "OS Type",
+        "osInfo": "OS Info",
+        "vmType": "VM Type",
+        "description": "Description",
+        "vendor": "Vendor",
+        "zone": "Zone",
+        "status": "Status",
+        "env": "Env",
+        "streeNodePath": "Node Path",
+        "assignNodeStatus": "Assign Node Status"
+      },
+      "osType": {
+        "linux": "Linux",
+        "windows": "Windows"
+      },
+      "vmType": {
+        "cloud": "Cloud Host",
+        "virtual": "Virtual Machine",
+        "physical": "Physical Machine"
+      },
+      "vendor": {
+        "aliyun": "Aliyun",
+        "tencent": "Tencent",
+        "huawei": "Huawei",
+        "aws": "AWS",
+        "VMware": "VMware",
+        "other": "Other"
+      },
+      "nodeStatus": {
+        "1": "Unassigned",
+        "2": "Assigned"
+      },
+      "button": {
+        "create": "Create Host",
+        "edit": "Edit Host",
+        "delete": "Delete Host"
+      },
+      "status": {
+        "title": "Host Status",
+        "1": "Normal",
+        "2": "Abnormal",
+        "3": "Insufficient Resource",
+        "4": "Resource Idle"
+      },
+      "env": {
+        "title": "Host Environment",
+        "1": "Development Environment",
+        "2": "Testing Environment",
+        "3": "Pre-release Environment",
+        "4": "Production Environment"
+      }
+    },
     "node": {
       "info": "Node Information",
       "title": "Node Name",

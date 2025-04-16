@@ -61,6 +61,7 @@
     "no_auth": "请选择要分配的权限"
   },
   "text": {
-    "do_you_want_delete": "你是否要删除掉该{moduleName}？"
+    "do_you_want_delete": "你是否要删除掉该{moduleName}？",
+    "unknown": "未知"
   }
 }
