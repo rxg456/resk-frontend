@@ -290,7 +290,16 @@ async function handleDelete(row: any) {
       </template>
 
       <template #assignNodeStatus="{ row }">
-        <el-tag type="primary" size="large">
+        <el-tag
+          :type="
+            row.assignNodeStatus === 1
+              ? 'danger'
+              : row.assignNodeStatus === 2
+                ? 'primary'
+                : 'danger'
+          "
+          size="large"
+        >
           {{
             nodeStatusList.find(
               (item: any) => item.value === row.assignNodeStatus,

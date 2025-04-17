@@ -1,18 +1,15 @@
 <script lang="ts" setup>
-import {
-  type VbenFormProps,
-  useVbenModal,
-  useVbenDrawer,
-} from '@vben/common-ui';
+import type { VbenFormProps } from '@vben/common-ui';
 
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { h, watch } from 'vue';
 import { POSITION, useToast } from 'vue-toastification';
-import { Icon } from '@iconify/vue';
 
+import { useVbenDrawer, useVbenModal } from '@vben/common-ui';
 import { LucideFilePenLine, LucideTrash2 } from '@vben/icons';
 
+import { Icon } from '@iconify/vue';
 import { ElButton } from 'element-plus';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
@@ -86,7 +83,7 @@ const formOptions: VbenFormProps = {
 };
 
 const gridOptions: VxeGridProps = {
-  height: '900px',
+  height: '500px',
   toolbarConfig: {
     custom: true,
     export: true,
@@ -249,98 +246,103 @@ watch(
 </script>
 
 <template>
-  <ElButton color="#626aef" class="mb-4" @click="openBindHostModal">
-    <Icon icon="gg:style" class="mr-1" />
-    {{ $t('page.stree.node.bindHost') }}
-  </ElButton>
-  <Grid>
-    <template #osType="{ row }">
-      <el-tag type="primary" size="large">
-        {{
-          osTypeList.find((item: any) => item.value === row.osType)?.label ||
-          $t('ui.text.unknown')
-        }}
-      </el-tag>
-    </template>
+  <div v-if="nodeData">
+    <ElButton color="#626aef" class="mb-4" @click="openBindHostModal">
+      <Icon icon="gg:style" class="mr-1" />
+      {{ $t('page.stree.node.bindHost') }}
+    </ElButton>
+    <Grid>
+      <template #osType="{ row }">
+        <el-tag type="primary" size="large">
+          {{
+            osTypeList.find((item: any) => item.value === row.osType)?.label ||
+            $t('ui.text.unknown')
+          }}
+        </el-tag>
+      </template>
 
-    <template #status="{ row }">
-      <el-tag
-        :type="
-          row.status === 1
-            ? 'success'
-            : row.status === 2
-              ? 'danger'
-              : row.status === 3
-                ? 'warning'
-                : row.status === 4
-                  ? 'info'
-                  : 'danger'
-        "
-        size="large"
-      >
-        {{
-          statusList.find((item: any) => item.value === row.status)?.label ||
-          $t('ui.text.unknown')
-        }}
-      </el-tag>
-    </template>
+      <template #status="{ row }">
+        <el-tag
+          :type="
+            row.status === 1
+              ? 'success'
+              : row.status === 2
+                ? 'danger'
+                : row.status === 3
+                  ? 'warning'
+                  : row.status === 4
+                    ? 'info'
+                    : 'danger'
+          "
+          size="large"
+        >
+          {{
+            statusList.find((item: any) => item.value === row.status)?.label ||
+            $t('ui.text.unknown')
+          }}
+        </el-tag>
+      </template>
 
-    <template #env="{ row }">
-      <el-tag type="primary" size="large">
-        {{
-          envList.find((item: any) => item.value === row.env)?.label ||
-          $t('ui.text.unknown')
-        }}
-      </el-tag>
-    </template>
+      <template #env="{ row }">
+        <el-tag type="primary" size="large">
+          {{
+            envList.find((item: any) => item.value === row.env)?.label ||
+            $t('ui.text.unknown')
+          }}
+        </el-tag>
+      </template>
 
-    <template #assignNodeStatus="{ row }">
-      <el-tag type="primary" size="large">
-        {{
-          nodeStatusList.find(
-            (item: any) => item.value === row.assignNodeStatus,
-          )?.label || $t('ui.text.unknown')
-        }}
-      </el-tag>
-    </template>
+      <template #assignNodeStatus="{ row }">
+        <el-tag type="primary" size="large">
+          {{
+            nodeStatusList.find(
+              (item: any) => item.value === row.assignNodeStatus,
+            )?.label || $t('ui.text.unknown')
+          }}
+        </el-tag>
+      </template>
 
-    <template #streeNodePath="{ row }">
-      <el-tag type="primary" size="large">
-        {{ row.streeNodePath }}
-      </el-tag>
-    </template>
+      <template #streeNodePath="{ row }">
+        <el-tag type="primary" size="large">
+          {{ row.streeNodePath }}
+        </el-tag>
+      </template>
 
-    <template #action="{ row }">
-      <ElButton
-        type="primary"
-        link
-        v-permission="['cmdb:host:edit']"
-        :icon="h(LucideFilePenLine)"
-        @click="() => handleEdit(row)"
-      />
-      <el-popconfirm
-        :title="
-          $t('ui.text.do_you_want_delete', {
-            moduleName: $t('page.stree.host.module'),
-          })
-        "
-        :confirm-button-text="$t('ui.button.ok')"
-        :cancel-button-text="$t('ui.button.cancel')"
-        @confirm="() => handleDelete(row)"
-      >
-        <template #reference>
-          <ElButton
-            type="danger"
-            v-permission="['cmdb:host:delete']"
-            link
-            :icon="LucideTrash2"
-          />
-        </template>
-      </el-popconfirm>
-    </template>
-  </Grid>
-  <!-- 绑定主机模态框 -->
-  <BindHostModal />
-  <!-- 编辑主机抽屉 -->
-  <Drawer />
+      <template #action="{ row }">
+        <ElButton
+          type="primary"
+          link
+          v-permission="['cmdb:host:edit']"
+          :icon="h(LucideFilePenLine)"
+          @click="() => handleEdit(row)"
+        />
+        <el-popconfirm
+          :title="
+            $t('ui.text.do_you_want_delete', {
+              moduleName: $t('page.stree.host.module'),
+            })
+          "
+          :confirm-button-text="$t('ui.button.ok')"
+          :cancel-button-text="$t('ui.button.cancel')"
+          @confirm="() => handleDelete(row)"
+        >
+          <template #reference>
+            <ElButton
+              type="danger"
+              v-permission="['cmdb:host:delete']"
+              link
+              :icon="LucideTrash2"
+            />
+          </template>
+        </el-popconfirm>
+      </template>
+    </Grid>
+    <!-- 绑定主机模态框 -->
+    <BindHostModal />
+    <!-- 编辑主机抽屉 -->
+    <Drawer />
+  </div>
+  <div v-else class="p-4 text-center text-gray-500">
+    {{ $t('page.stree.prompt.noNode') }}
+  </div>
 </template>

@@ -20,6 +20,19 @@ export const getHostListByNodeIdApi = async (nodeId: number, param: any) => {
 };
 
 /**
+ * 获取树节点可用主机列表(包括已分配到此节点的主机)
+ * @param nodeId
+ * @param param
+ * @returns
+ */
+export const getStreeNodeAvailableHostsApi = async (
+  nodeId: number,
+  param: any,
+) => {
+  return requestClient.get(`/host/stree-node/${nodeId}/available-list`, param);
+};
+
+/**
  * 删除主机
  * @param hostId
  */

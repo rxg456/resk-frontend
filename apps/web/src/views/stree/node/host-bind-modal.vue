@@ -1,14 +1,17 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
-import { useVbenModal } from '@vben/common-ui';
-import { ElTransfer } from 'element-plus';
+import { computed, ref } from 'vue';
 import { POSITION, useToast } from 'vue-toastification';
-import { $t } from '#/locales';
+
+import { useVbenModal } from '@vben/common-ui';
+
+import { ElTransfer } from 'element-plus';
+
 import {
-  getHostListApi,
   bindHostToStreeNodeApi,
   getHostListByNodeIdApi,
+  getStreeNodeAvailableHostsApi,
 } from '#/api';
+import { $t } from '#/locales';
 
 // 父组件传入的数据
 const data = ref();
@@ -53,12 +56,15 @@ const [Modal, modalApi] = useVbenModal({
 
       loading.value = true;
       try {
-        // 获取所有可用主机
-        const { items } = await getHostListApi({ assignNodeStatus: 1 });
+        // 获取所有节点可用主机 包括已绑定主机
+        const { items } = await getStreeNodeAvailableHostsApi(
+          data.value.nodeId,
+          { assignNodeStatus: 1 },
+        );
 
         // 转换为传输框需要的格式
         hostList.value = items.map((item: any) => ({
-          key: item.id,
+          key: Number(item.id),
           label: `${item.hostName} (${item.hostIp})`,
           disabled: false,
         }));
@@ -68,11 +74,11 @@ const [Modal, modalApi] = useVbenModal({
           page: 1,
           pageSize: 2000,
         });
-        console.log(boundHosts.items);
         // 设置已绑定的主机
-        transferValue.value = boundHosts.items.map((host: any) => host.id);
-        console.log(transferValue.value);
-      } catch (error) {
+        transferValue.value = boundHosts.items.map((host: any) =>
+          Number(host.id),
+        );
+      } catch {
         toast.error($t('ui.notification.fetch_failed'), {
           timeout: 2000,
           position: POSITION.TOP_CENTER,
@@ -86,25 +92,38 @@ const [Modal, modalApi] = useVbenModal({
 </script>
 
 <template>
-  <Modal :title="title" :loading="loading" width="700px">
-    <ElTransfer
-      v-model="transferValue"
-      :data="hostList"
-      :titles="[
-        $t('page.stree.host.availableHosts'),
-        $t('page.stree.host.boundHosts'),
-      ]"
-      :button-texts="[
-        $t('page.stree.host.button.unbind'),
-        $t('page.stree.host.button.bind'),
-      ]"
-      :format="{
-        noChecked: '${total}',
-        hasChecked: '${checked}/${total}',
-      }"
-      filterable
-      filter-placeholder="搜索主机"
-      class="w-full"
-    />
+  <Modal :title="title" :loading="loading" class="w-full max-w-3xl">
+    <div class="flex h-full min-h-[400px] items-center justify-center">
+      <ElTransfer
+        v-model="transferValue"
+        :data="hostList"
+        :titles="[
+          $t('page.stree.host.availableHosts'),
+          $t('page.stree.host.boundHosts'),
+        ]"
+        :format="{
+          noChecked: '${total}',
+          hasChecked: '${checked}/${total}',
+        }"
+        filterable
+        filter-placeholder="搜索主机"
+        class="transfer-custom w-full"
+      />
+    </div>
   </Modal>
 </template>
+
+<style scoped>
+.transfer-custom :deep(.el-transfer-panel) {
+  width: 290px;
+  min-height: 400px;
+}
+
+.transfer-custom :deep(.el-transfer-panel__body) {
+  height: 350px;
+}
+
+.transfer-custom :deep(.el-transfer-panel__list) {
+  height: 300px;
+}
+</style>

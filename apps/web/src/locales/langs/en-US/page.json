@@ -127,6 +127,9 @@
   "stree": {
     "title": "Service Tree",
     "pageTitle": "Service Tree Node Information",
+    "prompt": {
+      "noNode": "Please select a node from the left to view the details"
+    },
     "host": {
       "module": "Host",
       "menu": "Host Management",

@@ -127,6 +127,9 @@
   "stree": {
     "title": "服务树",
     "pageTitle": "服务树节点信息",
+    "prompt": {
+      "noNode": "请从左侧选择一个节点查看详情"
+    },
     "host": {
       "module": "主机",
       "menu": "主机管理",

@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import { ElDescriptions, ElDescriptionsItem, ElTag } from 'element-plus';
+import { EllipsisText, useVbenDrawer, VbenButton } from '@vben/common-ui';
+
 import { Icon } from '@iconify/vue';
+import { ElDescriptions, ElDescriptionsItem, ElTag } from 'element-plus';
+
 import { $t } from '#/locales';
-import { VbenButton, EllipsisText, useVbenDrawer } from '@vben/common-ui';
+
 import EditStreeNodeDrawer from './drawer.vue';
 
 // props定义，接收节点数据
@@ -13,10 +16,10 @@ const props = defineProps({
   },
 });
 
-const isValidArray = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
-
 // emit事件定义
 const emit = defineEmits(['refresh-tree']);
+
+const isValidArray = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
 
 const [Drawer, drawerApi] = useVbenDrawer({
   connectedComponent: EditStreeNodeDrawer,
@@ -30,7 +33,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
         emit('refresh-tree');
       }
     }
-  }
+  },
 });
 
 function openDrawer() {
@@ -154,6 +157,6 @@ function openDrawer() {
     </ElDescriptions>
   </div>
   <div v-else class="p-4 text-center text-gray-500">
-    请从左侧选择一个节点查看详情
+    {{ $t('page.stree.prompt.noNode') }}
   </div>
 </template>
