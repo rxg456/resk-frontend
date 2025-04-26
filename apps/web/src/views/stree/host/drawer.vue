@@ -57,7 +57,7 @@ const [HostForm, hostFormApi] = useVbenForm({
       rules: z.string().min(1, { message: $t('ui.formRules.required') }),
     },
     {
-      component: 'Input',
+      component: 'InputNumber',
       fieldName: 'cpu',
       label: $t('page.stree.host.columns.cpu'),
       defaultValue: 1,
@@ -65,10 +65,10 @@ const [HostForm, hostFormApi] = useVbenForm({
         placeholder: $t('ui.placeholder.input'),
         allowClear: true,
       },
-      rules: z.number().min(1, { message: $t('ui.formRules.required') }),
+      rules: z.number().min(1, { message: $t('ui.formRules.numberRequired') }),
     },
     {
-      component: 'Input',
+      component: 'InputNumber',
       fieldName: 'memory',
       label: $t('page.stree.host.columns.memory'),
       defaultValue: 1,
@@ -76,10 +76,10 @@ const [HostForm, hostFormApi] = useVbenForm({
         placeholder: $t('ui.placeholder.input'),
         allowClear: true,
       },
-      rules: z.number().min(1, { message: $t('ui.formRules.required') }),
+      rules: z.number().min(1, { message: $t('ui.formRules.numberRequired') }),
     },
     {
-      component: 'Input',
+      component: 'InputNumber',
       fieldName: 'nodeExporterPort',
       label: $t('page.stree.host.columns.nodeExporterPort'),
       defaultValue: 9100,
@@ -87,7 +87,7 @@ const [HostForm, hostFormApi] = useVbenForm({
         placeholder: $t('ui.placeholder.input'),
         allowClear: true,
       },
-      rules: z.number().min(1, { message: $t('ui.formRules.required') }),
+      rules: z.number().min(1, { message: $t('ui.formRules.numberRequired') }),
     },
     {
       component: 'Select',

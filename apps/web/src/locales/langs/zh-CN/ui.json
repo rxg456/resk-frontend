@@ -7,7 +7,8 @@
     "input": "请输入{label}"
   },
   "formRules": {
-    "required": "必填"
+    "required": "必填",
+    "numberRequired": "请输入大于0的数字"
   },
   "tree": {
     "select_all": "选择全部",
