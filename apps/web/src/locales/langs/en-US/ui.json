@@ -36,6 +36,10 @@
     "active": "Active",
     "inactive": "Inactive"
   },
+  "radio": {
+    "support": "Support",
+    "unsupport": "Unsupport"
+  },
   "button": {
     "ok": "OK",
     "cancel": "Cancel",
@@ -58,7 +62,8 @@
     "delete_failed": "Delete Failed",
     "update_status_success": "Update Status Success",
     "update_status_failed": "Update Status Failed",
-    "no_auth": "Please select the permissions to be assigned"
+    "no_auth": "Please select the permissions to be assigned",
+    "validate_failed": "Please check the input data"
   },
   "text": {
     "do_you_want_delete": "Do you want to delete the {moduleName}?",

@@ -242,5 +242,70 @@
         "createFailed": "Create node failed"
       }
     }
+  },
+  "monitor": {
+    "title": "Monitor Center",
+    "scrapePool": {
+      "module": "Scrape Pool",
+      "menu": "Scrape Pool Management",
+      "columns": {
+        "name": "Scrape Pool Name",
+        "remoteWriteUrl": "Remote Write URL",
+        "remoteReadUrl": "Remote Read URL",
+        "scrapeInterval": "Scrape Interval",
+        "scrapeTimeout": "Scrape Timeout",
+        "prometheusInstances": "Prometheus Instances",
+        "externalLabels": "External Labels",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "remoteTimeoutSeconds": "Remote Write Timeout",
+        "supportAlert": "Support Alert",
+        "alertManagerUrl": "Alert Manager URL",
+        "RuleFilePath": "Rule File Path",
+        "supportRecord": "Support Record",
+        "RecordFilePath": "Record File Path"
+      },
+      "prompt": {
+        "prometheusInstances": "Please select the prometheus instance",
+        "externalLabels": "Please enter the label, each line is an example: \napp=gateway\nenv=pord",
+        "externalLabelsFormat": "The label format must be key=value",
+        "externalLabelsHelp": "Each line is a label, the format is key=value"
+      },
+      "config": {
+        "tabs": {
+          "mainConfig": "Main Config",
+          "ruleConfig": "Rule Config"
+        }
+      },
+      "button": {
+        "create": "Create Scrape Pool",
+        "edit": "Edit Scrape Pool",
+        "delete": "Delete Scrape Pool"
+      }
+    },
+    "scrapeJob": {
+      "module": "Scrape Job",
+      "title": "{name} Scrape Job",
+      "columns": {
+        "name": "Scrape Job Name",
+        "enable": "Enable",
+        "serviceDiscoveryType": "Service Discovery Type",
+        "metricsPath": "Metrics Path",
+        "scheme": "Scheme",
+        "scrapeInterval": "Scrape Interval",
+        "scrapeTimeout": "Scrape Timeout",
+        "port": "Port",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "pool": "Scrape Pool",
+        "relabelConfigsYamlString": "Custom Relabel Configs",
+        "relabelConfigsYamlStringHelp": "Please enter the relabel configs, each line is an example: \n- source_labels: [__meta_kubernetes_pod_label_app]\n  target_label: app\n  action: replace\n  regex: (.*)\n  replacement: $1",
+        "refreshInterval": "http sd refresh interval",
+        "treeNodeIds": "Service Tree Node"
+      },
+      "button": {
+        "create": "Create Scrape Job"
+      }
+    }
   }
 }

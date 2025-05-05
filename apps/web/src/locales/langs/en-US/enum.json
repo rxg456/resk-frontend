@@ -4,6 +4,10 @@
     "OFF": "OFF",
     "Select": "Select"
   },
+  "enable": {
+    "ON": "Enable",
+    "OFF": "Disable"
+  },
   "authority": {
     "CUSTOMER_USER": "Customer",
     "GUEST_USER": "Guest",
@@ -18,5 +22,9 @@
   "successStatus": {
     "success": "Success",
     "failed": "Failed"
+  },
+  "serviceDiscoveryType": {
+    "STREE_HTTP": "Stree HTTP",
+    "KUBERNETES": "Kubernetes"
   }
 }

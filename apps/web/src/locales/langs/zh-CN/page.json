@@ -242,5 +242,70 @@
         "createFailed": "新增节点失败"
       }
     }
+  },
+  "monitor": {
+    "title": "监控中心",
+    "scrapePool": {
+      "module": "采集池",
+      "menu": "采集池管理",
+      "columns": {
+        "name": "采集池名称",
+        "remoteWriteUrl": "远程写入URL",
+        "remoteReadUrl": "远程读取URL",
+        "scrapeInterval": "采集间隔",
+        "scrapeTimeout": "采集超时",
+        "prometheusInstances": "采集实例",
+        "externalLabels": "label标签",
+        "createdAt": "创建时间",
+        "updatedAt": "更新时间",
+        "remoteTimeoutSeconds": "远程写入超时",
+        "supportAlert": "是否支持告警",
+        "alertManagerUrl": "alertmanager的地址",
+        "ruleFilePath": "告警规则文件路径",
+        "supportRecord": "是否支持预聚合",
+        "recordFilePath": "预聚合文件路径"
+      },
+      "prompt": {
+        "prometheusInstances": "请选择采集实例",
+        "externalLabels": "请输入标签，每行一个例如：\napp=gateway\nenv=pord",
+        "externalLabelsFormat": "标签格式必须为key=value",
+        "externalLabelsHelp": "每行一个标签，格式为key=value"
+      },
+      "config": {
+        "tabs": {
+          "mainConfig": "main配置",
+          "ruleConfig": "rule配置"
+        }
+      },
+      "button": {
+        "create": "新增采集池",
+        "edit": "编辑采集池",
+        "delete": "删除采集池"
+      }
+    },
+    "scrapeJob": {
+      "module": "采集任务",
+      "title": "{name}采集任务列表",
+      "columns": {
+        "name": "采集任务名称",
+        "scrapeInterval": "采集间隔",
+        "scrapeTimeout": "采集超时",
+        "enable": "状态",
+        "serviceDiscoveryType": "服务发现类型",
+        "metricsPath": "采集路径",
+        "port": "默认采集端口",
+        "scheme": "采集协议",
+        "createdAt": "创建时间",
+        "updatedAt": "更新时间",
+        "pool": "采集池",
+        "relabelConfigsYamlString": "自定义relabel配置",
+        "relabelConfigsYamlStringHelp": "请输入relabel配置，每行一个例如：\n- source_labels: [__meta_kubernetes_pod_label_app]\n  target_label: app\n  action: replace\n  regex: (.*)\n  replacement: $1",
+        "refreshInterval": "http sd刷新间隔",
+        "treeNodeIds": "服务树节点"
+      },
+      "button": {
+        "create": "新增采集Job"
+      }
+    }
   }
 }

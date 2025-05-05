@@ -4,6 +4,10 @@
     "OFF": "停用",
     "Select": "请选择"
   },
+  "enable": {
+    "ON": "启用",
+    "OFF": "禁用"
+  },
   "authority": {
     "CUSTOMER_USER": "普通用户",
     "GUEST_USER": "游客",
@@ -18,5 +22,9 @@
   "successStatus": {
     "success": "成功",
     "failed": "失败"
+  },
+  "serviceDiscoveryType": {
+    "STREE_HTTP": "服务树HTTP",
+    "KUBERNETES": "Kubernetes"
   }
 }

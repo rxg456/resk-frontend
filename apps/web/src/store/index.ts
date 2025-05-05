@@ -10,11 +10,21 @@ export const statusList = computed(() => [
   { value: 2, label: $t('enum.status.OFF') },
 ]);
 
+export const enableList = computed(() => [
+  { value: 1, label: $t('enum.enable.ON') },
+  { value: 2, label: $t('enum.enable.OFF') },
+]);
+
 export const methodList = computed(() => [
   { value: 'GET', label: 'GET' },
   { value: 'POST', label: 'POST' },
   { value: 'PUT', label: 'PUT' },
   { value: 'DELETE', label: 'DELETE' },
+]);
+
+export const serviceDiscoveryTypeList = computed(() => [
+  { value: 'stree-http', label: $t('enum.serviceDiscoveryType.STREE_HTTP') },
+  { value: 'kubernetes', label: $t('enum.serviceDiscoveryType.KUBERNETES') },
 ]);
 
 export interface Timestamp {
