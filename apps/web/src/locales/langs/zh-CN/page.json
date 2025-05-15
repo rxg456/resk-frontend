@@ -306,6 +306,29 @@
       "button": {
         "create": "新增采集Job"
       }
+    },
+    "oncall-duty-group": {
+      "module": "值班组",
+      "menu": "值班组管理",
+      "title": "值班组列表",
+      "columns": {
+        "name": "值班组名称",
+        "rotationPeriod": "轮班周期(天)",
+        "startTime": "开始日期",
+        "endTime": "结束日期",
+        "scheduleStatus": "值班日历状态",
+        "createdAt": "创建时间",
+        "updatedAt": "更新时间",
+        "datePicker": "值班起止时间",
+        "members": "值班成员"
+      },
+      "prompt": {
+        "members": "请选择值班成员"
+      },
+      "button": {
+        "create": "新增值班组",
+        "delete": "删除值班组"
+      }
     }
   }
 }

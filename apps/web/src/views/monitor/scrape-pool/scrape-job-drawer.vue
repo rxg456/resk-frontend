@@ -152,6 +152,7 @@ const gridOptions: VxeGridProps = {
       field: 'action',
       fixed: 'right',
       slots: { default: 'action' },
+      minWidth: 120,
     },
   ],
 };

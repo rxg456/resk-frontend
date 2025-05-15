@@ -306,6 +306,29 @@
       "button": {
         "create": "Create Scrape Job"
       }
+    },
+    "oncall-duty-group": {
+      "module": "On-call Duty Group",
+      "menu": "On-call Duty Group Management",
+      "title": "On-call Duty Group List",
+      "columns": {
+        "name": "Duty Group Name",
+        "rotationPeriod": "Rotation Period",
+        "startTime": "Start Date",
+        "endTime": "End Date",
+        "scheduleStatus": "Schedule Status",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "datePicker": "Duty Time",
+        "members": "Duty Members"
+      },
+      "prompt": {
+        "members": "Please select the duty members"
+      },
+      "button": {
+        "create": "Create Duty Group",
+        "delete": "Delete Duty Group"
+      }
     }
   }
 }
