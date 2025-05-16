@@ -1,21 +1,24 @@
 <script lang="ts" setup>
+import type { VbenFormProps } from '@vben/common-ui';
+
+import type { VxeGridProps } from '#/adapter/vxe-table';
+
+import { computed, h, ref } from 'vue';
+
+import { useVbenDrawer, useVbenModal } from '@vben/common-ui';
+import { LucideFilePenLine, LucideTrash2 } from '@vben/icons';
+import { formatDateTime } from '@vben/utils';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
-  type VbenFormProps,
-  useVbenDrawer,
-  useVbenModal,
-} from '@vben/common-ui';
-import { type VxeGridProps, useVbenVxeGrid } from '#/adapter/vxe-table';
-import { ref, computed, h } from 'vue';
-import { $t } from '#/locales';
-import { enableList } from '#/store';
-import {
+  deleteScrapeJobApi,
   getScrapeJobListByPoolIdApi,
   updateScrapeJobStatusApi,
-  deleteScrapeJobApi,
 } from '#/api';
-import { formatDateTime } from '@vben/utils';
+import { $t } from '#/locales';
+import { enableList } from '#/store';
+
 import JobModal from './job-modal.vue';
-import { LucideFilePenLine, LucideTrash2 } from '@vben/icons';
 
 // 接受父组件传递的数据
 const data = ref();

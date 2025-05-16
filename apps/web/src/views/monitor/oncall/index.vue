@@ -1,17 +1,27 @@
 <script lang="ts" setup>
-import { Page, useVbenModal, useVbenDrawer } from '@vben/common-ui';
-import { $t } from '#/locales';
 import type { VbenFormProps } from '@vben/common-ui';
-import { type VxeGridProps, useVbenVxeGrid } from '#/adapter/vxe-table';
-import { POSITION, useToast } from 'vue-toastification';
-import { getDutyGroupListApi, createDutyGroupApi } from '#/api';
-import { formatDateTime } from '@vben/utils';
-import { ElButton, ElDivider } from 'element-plus';
-import { ref } from 'vue';
-import { LucideFilePenLine, LucideTrash2, LucideLayoutList } from '@vben/icons';
+
+import type { VxeGridProps } from '#/adapter/vxe-table';
+
 import { h } from 'vue';
+
+import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
+import {
+  LucideCalendarCheck2,
+  LucideFilePenLine,
+  LucideTrash2,
+} from '@vben/icons';
+import { formatDateTime } from '@vben/utils';
+
+import { ElButton, ElDivider } from 'element-plus';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { deleteDutyGroupApi, getDutyGroupListApi } from '#/api';
+import { $t } from '#/locales';
+
+import { scheduleStatus } from './consts';
+import DutyCalendarModal from './duty-calendar-modal.vue';
 import DutyGroupDrawer from './duty-group-drawer.vue';
-const toast = useToast();
 
 const formOptions: VbenFormProps = {
   // 默认展开
@@ -124,6 +134,18 @@ const [GroupDrawer, groupDrawerApi] = useVbenDrawer({
   },
 });
 
+const [Modal, modalApi] = useVbenModal({
+  connectedComponent: DutyCalendarModal,
+});
+
+// 打开查看配置模态框
+function openModal(row: any) {
+  modalApi.setData({
+    row,
+  });
+  modalApi.open();
+}
+
 // 打开抽屉 创建/编辑
 function openGroupDrawer(create: boolean, row?: any) {
   groupDrawerApi.setData({
@@ -131,6 +153,16 @@ function openGroupDrawer(create: boolean, row?: any) {
     row,
   });
   groupDrawerApi.open();
+}
+
+async function handleDelete(row: any) {
+  row.pending = true;
+  try {
+    await deleteDutyGroupApi(row.id);
+  } finally {
+    row.pending = false;
+    gridApi.query();
+  }
 }
 
 /* 编辑 */
@@ -148,24 +180,35 @@ function handleCreate() {
   <Page auto-content-height>
     <Grid :table-title="$t('page.monitor.oncall-duty-group.title')">
       <template #toolbar-tools>
-        <el-button
+        <ElButton
           class="mr-2"
           v-permission="['monitor:oncall-duty-group:create']"
           type="primary"
           @click="handleCreate"
         >
           {{ $t('page.monitor.oncall-duty-group.button.create') }}
-        </el-button>
+        </ElButton>
       </template>
 
       <template #rotationPeriod="{ row }">
         {{ row.rotationPeriod }}天
       </template>
 
-      <template #startTime="{ row }"> {{ row.startTime }}</template>
-      <template #endTime="{ row }"> {{ row.endTime }} </template>
+      <template #startTime="{ row }">
+        {{ formatDateTime(row.startTime) }}
+      </template>
+      <template #endTime="{ row }">
+        {{ formatDateTime(row.endTime) }}
+      </template>
+
       <template #scheduleStatus="{ row }">
-        {{ row.scheduleStatus }}
+        <el-tag type="primary" size="large">
+          {{
+            scheduleStatus.find(
+              (item: any) => item.value === row.scheduleStatus,
+            )?.label || $t('ui.text.unknown')
+          }}
+        </el-tag>
       </template>
 
       <template #createdAt="{ row }">
@@ -175,13 +218,19 @@ function handleCreate() {
         {{ formatDateTime(row.updatedAt) }}
       </template>
       <template #action="{ row }">
-        <ElButton type="success" link :icon="h(LucideLayoutList)"></ElButton>
+        <ElButton
+          type="success"
+          link
+          :icon="h(LucideCalendarCheck2)"
+          @click="openModal(row)"
+        />
         <ElDivider direction="vertical" />
         <ElButton
           type="primary"
           link
           v-permission="['monitor:oncall-duty-group:edit']"
           :icon="h(LucideFilePenLine)"
+          @click="handleEdit(row)"
         />
         <el-popconfirm
           placement="top"
@@ -192,6 +241,7 @@ function handleCreate() {
           "
           :confirm-button-text="$t('ui.button.ok')"
           :cancel-button-text="$t('ui.button.cancel')"
+          @confirm="() => handleDelete(row)"
         >
           <template #reference>
             <ElButton
@@ -206,5 +256,7 @@ function handleCreate() {
     </Grid>
     <!-- 值班组抽屉 -->
     <GroupDrawer />
+    <!-- 值班组信息 -->
+    <Modal />
   </Page>
 </template>

@@ -40,9 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
         accessStore.setAccessToken(accessToken);
 
         // 获取用户信息并存储到 accessStore 中
-        const [fetchUserInfoResult] = await Promise.all([
-          fetchUserInfo(),
-        ]);
+        const [fetchUserInfoResult] = await Promise.all([fetchUserInfo()]);
 
         userInfo = fetchUserInfoResult;
 

@@ -316,11 +316,17 @@
         "rotationPeriod": "Rotation Period",
         "startTime": "Start Date",
         "endTime": "End Date",
-        "scheduleStatus": "Schedule Status",
+        "scheduleStatus": "Schedule Generation Status",
         "createdAt": "Created At",
         "updatedAt": "Updated At",
         "datePicker": "Duty Time",
         "members": "Duty Members"
+      },
+      "scheduleStatus": {
+        "0": "Pending Generation",
+        "1": "Generating",
+        "2": "Generated",
+        "3": "Generation Failed"
       },
       "prompt": {
         "members": "Please select the duty members"

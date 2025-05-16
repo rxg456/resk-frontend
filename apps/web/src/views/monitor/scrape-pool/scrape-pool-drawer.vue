@@ -1,14 +1,16 @@
 <script lang="ts" setup>
+import { computed, ref } from 'vue';
+import { POSITION, useToast } from 'vue-toastification';
+
 import { useVbenDrawer, z } from '@vben/common-ui';
+
 import { useVbenForm } from '#/adapter/form';
-import { ref, computed } from 'vue';
-import { $t } from '#/locales';
 import {
-  getHostListApi,
   createScrapePoolApi,
+  getHostListApi,
   updateScrapePoolApi,
 } from '#/api';
-import { useToast, POSITION } from 'vue-toastification';
+import { $t } from '#/locales';
 
 // 接受父组件传递的数据
 const data = ref();
@@ -24,66 +26,6 @@ const getTitle = computed(() =>
         moduleName: $t('page.monitor.scrapePool.module'),
       }),
 );
-const [Drawer, drawerApi] = useVbenDrawer({
-  onCancel() {
-    drawerApi.close();
-  },
-  async onOpened() {
-    setLoading(true);
-    data.value = drawerApi.getData<Record<string, any>>();
-
-    if (!isCreate.value && data.value?.row) {
-      // 处理externalLabels，将数组转换为每行一个标签的格式
-      if (
-        data.value.row.externalLabels &&
-        Array.isArray(data.value.row.externalLabels)
-      ) {
-        data.value.row.externalLabelsStr =
-          data.value.row.externalLabels.join('\n');
-      }
-    }
-    // 为表单赋值
-    poolFormApi.setValues(data.value?.row);
-    // 添加延时，确保加载状态至少显示300毫秒，否则后续的loading状态不会显示
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    setLoading(false);
-  },
-  async onConfirm() {
-    // 校验输入的数据
-    const validate = await poolFormApi.validate();
-    if (!validate.valid) {
-      toast.error($t('ui.notification.validate_failed'), {
-        timeout: 2000,
-        position: POSITION.TOP_CENTER,
-      });
-      return;
-    }
-
-    setLoading(true);
-
-    // 获取表单数据
-    const values = await poolFormApi.getValues();
-    // 将多行文本转换为数组
-    if (values?.externalLabelsStr) {
-      const labelsArray = values.externalLabelsStr
-        .split('\n')
-        .map((line: string) => line.trim())
-        .filter((line: string) => line); // 过滤空行
-
-      values.externalLabels = labelsArray;
-    }
-    try {
-      await (data.value?.create
-        ? createScrapePoolApi(values)
-        : updateScrapePoolApi(data.value.row.id, values));
-      drawerApi.setData({ needRefresh: true });
-    } catch {
-    } finally {
-      drawerApi.close();
-      setLoading(false);
-    }
-  },
-});
 
 // 验证每行标签格式
 const validateLabelsPerLine = (value: string) => {
@@ -95,7 +37,7 @@ const validateLabelsPerLine = (value: string) => {
   const isValid = lines.every((line) => {
     // 忽略空行
     if (!line.trim()) return true;
-    return /^[a-zA-Z0-9_]+=.+$/.test(line.trim());
+    return /^\w+=.+$/.test(line.trim());
   });
 
   return isValid;
@@ -337,6 +279,65 @@ const [poolForm, poolFormApi] = useVbenForm({
       }),
     },
   ],
+});
+
+const [Drawer, drawerApi] = useVbenDrawer({
+  onCancel() {
+    drawerApi.close();
+  },
+  async onOpened() {
+    setLoading(true);
+    data.value = drawerApi.getData<Record<string, any>>();
+
+    if (
+      !isCreate.value &&
+      data.value?.row && // 处理externalLabels，将数组转换为每行一个标签的格式
+      data.value.row.externalLabels &&
+      Array.isArray(data.value.row.externalLabels)
+    ) {
+      data.value.row.externalLabelsStr =
+        data.value.row.externalLabels.join('\n');
+    }
+    // 为表单赋值
+    poolFormApi.setValues(data.value?.row);
+    // 添加延时，确保加载状态至少显示300毫秒，否则后续的loading状态不会显示
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    setLoading(false);
+  },
+  async onConfirm() {
+    // 校验输入的数据
+    const validate = await poolFormApi.validate();
+    if (!validate.valid) {
+      toast.error($t('ui.notification.validate_failed'), {
+        timeout: 2000,
+        position: POSITION.TOP_CENTER,
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    // 获取表单数据
+    const values = await poolFormApi.getValues();
+    // 将多行文本转换为数组
+    if (values?.externalLabelsStr) {
+      const labelsArray = values.externalLabelsStr
+        .split('\n')
+        .map((line: string) => line.trim())
+        .filter(Boolean); // 过滤空行
+
+      values.externalLabels = labelsArray;
+    }
+    try {
+      await (data.value?.create
+        ? createScrapePoolApi(values)
+        : updateScrapePoolApi(data.value.row.id, values));
+      drawerApi.setData({ needRefresh: true });
+    } finally {
+      drawerApi.close();
+      setLoading(false);
+    }
+  },
 });
 
 async function setLoading(loading: boolean) {

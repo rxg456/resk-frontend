@@ -316,11 +316,17 @@
         "rotationPeriod": "轮班周期(天)",
         "startTime": "开始日期",
         "endTime": "结束日期",
-        "scheduleStatus": "值班日历状态",
+        "scheduleStatus": "值班生成状态",
         "createdAt": "创建时间",
         "updatedAt": "更新时间",
         "datePicker": "值班起止时间",
         "members": "值班成员"
+      },
+      "scheduleStatus": {
+        "0": "待生成",
+        "1": "生成中",
+        "2": "已生成",
+        "3": "生成失败"
       },
       "prompt": {
         "members": "请选择值班成员"

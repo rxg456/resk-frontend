@@ -1,18 +1,25 @@
 <script lang="ts" setup>
-import { Page, useVbenModal, useVbenDrawer } from '@vben/common-ui';
-import { $t } from '#/locales';
 import type { VbenFormProps } from '@vben/common-ui';
-import { type VxeGridProps, useVbenVxeGrid } from '#/adapter/vxe-table';
+
+import type { VxeGridProps } from '#/adapter/vxe-table';
+
+import { h, ref } from 'vue';
 import { POSITION, useToast } from 'vue-toastification';
-import { getScrapePoolListApi, deleteScrapePoolApi } from '#/api';
+
+import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
+import { LucideFilePenLine, LucideLayoutList, LucideTrash2 } from '@vben/icons';
 import { formatDateTime } from '@vben/utils';
+
 import { ElButton, ElDivider } from 'element-plus';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { deleteScrapePoolApi, getScrapePoolListApi } from '#/api';
+import { $t } from '#/locales';
+
 import ConfigModal from './config-modal.vue';
-import { ref } from 'vue';
-import { LucideFilePenLine, LucideTrash2, LucideLayoutList } from '@vben/icons';
-import { h } from 'vue';
-import ScrapePoolDrawer from './scrape-pool-drawer.vue';
 import ScrapeJobDrawer from './scrape-job-drawer.vue';
+import ScrapePoolDrawer from './scrape-pool-drawer.vue';
+
 const toast = useToast();
 const popoverRef = ref();
 const formOptions: VbenFormProps = {
@@ -156,7 +163,7 @@ function openConfigModal(instance: any) {
   // 先关闭Popover
   popoverRef.value?.hide();
   modalApi.setData({
-    instance: instance,
+    instance,
   });
   modalApi.open();
 }
@@ -220,14 +227,14 @@ function handleCreate() {
   <Page auto-content-height>
     <Grid :table-title="$t('page.monitor.scrapePool.menu')">
       <template #toolbar-tools>
-        <el-button
+        <ElButton
           class="mr-2"
           v-permission="['monitor:scrape-pool:create']"
           type="primary"
           @click="handleCreate"
         >
           {{ $t('page.monitor.scrapePool.button.create') }}
-        </el-button>
+        </ElButton>
       </template>
 
       <template #scrapeInterval="{ row }"> {{ row.scrapeInterval }}s </template>
@@ -367,7 +374,7 @@ function handleCreate() {
           link
           :icon="h(LucideLayoutList)"
           @click="openJobDrawer(row)"
-        ></ElButton>
+        />
         <ElDivider direction="vertical" />
         <ElButton
           type="primary"

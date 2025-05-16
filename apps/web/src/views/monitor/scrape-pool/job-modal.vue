@@ -1,16 +1,18 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
+import { POSITION, useToast } from 'vue-toastification';
+
 import { useVbenModal, z } from '@vben/common-ui';
+
 import { useVbenForm } from '#/adapter/form';
-import { $t } from '#/locales';
 import {
-  getScrapePoolListApi,
-  getAllStreeNodesApi,
   createScrapeJobByPoolIdApi,
+  getAllStreeNodesApi,
+  getScrapePoolListApi,
   updateScrapeJobApi,
 } from '#/api';
+import { $t } from '#/locales';
 import { enableList, serviceDiscoveryTypeList } from '#/store';
-import { useToast, POSITION } from 'vue-toastification';
 
 const toast = useToast();
 
@@ -32,55 +34,6 @@ const getTitle = computed(() =>
         moduleName: $t('page.monitor.scrapeJob.module'),
       }),
 );
-// 在模态框打开时加载数据
-const [Modal, modalApi] = useVbenModal({
-  async onOpenChange(isOpen) {
-    if (isOpen) {
-      setLoading(true);
-      // 获取传入的数据
-      data.value = modalApi.getData<Record<string, any>>();
-      poolId.value = data.value?.poolId;
-      if (isCreate.value) {
-        // 重置表单
-        jobFormApi.resetForm();
-      } else {
-        // 为表单赋值
-        jobFormApi.setValues(data.value?.row);
-      }
-
-      // 添加延时，确保加载状态至少显示300毫秒，否则后续的loading状态不会显示
-      await new Promise((resolve) => setTimeout(resolve, 300));
-      setLoading(false);
-    }
-  },
-  onConfirm: async () => {
-    // 校验输入的数据
-    const validate = await jobFormApi.validate();
-    if (!validate.valid) {
-      toast.error($t('ui.notification.validate_failed'), {
-        timeout: 2000,
-        position: POSITION.TOP_CENTER,
-      });
-      return;
-    }
-    modalApi.setState({ loading: true });
-
-    // 获取表单数据
-    const values = await jobFormApi.getValues();
-
-    try {
-      await (isCreate.value
-        ? createScrapeJobByPoolIdApi(poolId.value, values)
-        : updateScrapeJobApi(data.value.row.id, values));
-      modalApi.close();
-      modalApi.setData({ needRefresh: true });
-    } catch {
-      // 不关闭模态框，允许用户修改
-    } finally {
-      modalApi.setState({ loading: false });
-    }
-  },
-});
 
 const [jobForm, jobFormApi] = useVbenForm({
   // 不显示默认操作按钮
@@ -320,6 +273,55 @@ const [jobForm, jobFormApi] = useVbenForm({
       }),
     },
   ],
+});
+// 在模态框打开时加载数据
+const [Modal, modalApi] = useVbenModal({
+  async onOpenChange(isOpen) {
+    if (isOpen) {
+      setLoading(true);
+      // 获取传入的数据
+      data.value = modalApi.getData<Record<string, any>>();
+      poolId.value = data.value?.poolId;
+      if (isCreate.value) {
+        // 重置表单
+        jobFormApi.resetForm();
+      } else {
+        // 为表单赋值
+        jobFormApi.setValues(data.value?.row);
+      }
+
+      // 添加延时，确保加载状态至少显示300毫秒，否则后续的loading状态不会显示
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      setLoading(false);
+    }
+  },
+  onConfirm: async () => {
+    // 校验输入的数据
+    const validate = await jobFormApi.validate();
+    if (!validate.valid) {
+      toast.error($t('ui.notification.validate_failed'), {
+        timeout: 2000,
+        position: POSITION.TOP_CENTER,
+      });
+      return;
+    }
+    modalApi.setState({ loading: true });
+
+    // 获取表单数据
+    const values = await jobFormApi.getValues();
+
+    try {
+      await (isCreate.value
+        ? createScrapeJobByPoolIdApi(poolId.value, values)
+        : updateScrapeJobApi(data.value.row.id, values));
+      modalApi.close();
+      modalApi.setData({ needRefresh: true });
+    } catch {
+      // 不关闭模态框，允许用户修改
+    } finally {
+      modalApi.setState({ loading: false });
+    }
+  },
 });
 
 async function setLoading(loading: boolean) {

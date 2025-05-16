@@ -1,18 +1,19 @@
-import { $t } from '@vben/locales';
 import { computed } from 'vue';
+
+import { $t } from '@vben/locales';
 
 /** 用户权限 */
 export enum UserAuthority {
-  /** SYS_ADMIN - 系统超级用户 */
-  SYS_ADMIN = 'SYS_ADMIN',
-  /** SYS_MANAGER - 系统管理员 */
-  SYS_MANAGER = 'SYS_MANAGER',
   /** CUSTOMER_USER - 普通用户 */
   CUSTOMER_USER = 'CUSTOMER_USER',
   /** GUEST_USER - 游客 */
   GUEST_USER = 'GUEST_USER',
   /** REFRESH_TOKEN - 刷新令牌 */
   REFRESH_TOKEN = 'REFRESH_TOKEN',
+  /** SYS_ADMIN - 系统超级用户 */
+  SYS_ADMIN = 'SYS_ADMIN',
+  /** SYS_MANAGER - 系统管理员 */
+  SYS_MANAGER = 'SYS_MANAGER',
 }
 
 export const authorityList = computed(() => [

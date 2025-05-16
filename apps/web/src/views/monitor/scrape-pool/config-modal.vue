@@ -1,12 +1,16 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import { useVbenModal } from '@vben/common-ui';
-import { $t } from '#/locales';
-import { ReskTabs } from '@vben/common-ui';
 import type { TabOption } from '@vben/types';
-import { getScrapePoolInstanceConfigApi } from '#/api/monitor/scrape-pool';
-import hljs from 'highlight.js';
+
+import { computed, ref } from 'vue';
 import { POSITION, useToast } from 'vue-toastification';
+
+import { ReskTabs, useVbenModal } from '@vben/common-ui';
+
+import hljs from 'highlight.js';
+
+import { getScrapePoolInstanceConfigApi } from '#/api/monitor/scrape-pool';
+import { $t } from '#/locales';
+
 import 'highlight.js/styles/a11y-light.css'; // 可以选择其他样式
 
 const toast = useToast();
@@ -16,7 +20,7 @@ const data = ref();
 // 加载状态
 const loading = ref(false);
 // 标题
-const title = computed(() => data.value?.host_ip + '配置详情');
+const title = computed(() => `${data.value?.host_ip}配置详情`);
 
 // 存储主配置YAML
 const mainConfigYaml = ref('');
@@ -63,7 +67,7 @@ async function loadConfigData() {
     ruleConfigHtml.value = hljs.highlight(ruleConfigYaml.value, {
       language: 'yaml',
     }).value;
-  } catch (error) {
+  } catch {
     toast.error('获取配置失败', {
       timeout: 3000,
       position: POSITION.TOP_CENTER,

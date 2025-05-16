@@ -28,12 +28,16 @@ export const LucidePencilOff = createIconifyIcon('lucide:pencil-off');
 
 export const LucideNotebookPen = createIconifyIcon('lucide:notebook-pen');
 export const LucideFilePenLine = createIconifyIcon('lucide:file-pen-line');
+
 export const LucideLayoutList = createIconifyIcon('lucide:layout-list');
 
 export const LucideInfo = createIconifyIcon('lucide:info');
 
 export const LucideEllipsisVertical = createIconifyIcon(
   'lucide:ellipsis-vertical',
+);
+export const LucideCalendarCheck2 = createIconifyIcon(
+  'lucide:calendar-check-2',
 );
 export const LucideEllipsis = createIconifyIcon('lucide:ellipsis');
 export const LucideLoaderCircle = createIconifyIcon('lucide:loader-circle');
