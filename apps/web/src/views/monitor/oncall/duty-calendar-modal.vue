@@ -12,6 +12,8 @@ import { getDutyGroupDutyDataApi } from '#/api';
 const data = ref();
 // 值班数据
 const dutyData = ref<any>({});
+// 当前值班和下一班值班数据（独立存储）
+const currentAndNextDutyData = ref<any>({});
 // 当前日期
 const currentDate = ref(new Date());
 // 加载状态
@@ -38,6 +40,30 @@ const getMonthRange = (date: Date) => {
   return { startDate, endDate };
 };
 
+// 获取当前和下一班值班信息
+const fetchCurrentAndNextDuty = async () => {
+  if (!data.value?.id) return;
+
+  try {
+    loading.value = true;
+    // 获取今天和未来30天的数据来确保能找到下一班值班人
+    const startDate = dayjs().format('YYYY-MM-DD[T]00:00:00+08:00');
+    const endDate = dayjs()
+      .add(30, 'day')
+      .format('YYYY-MM-DD[T]23:59:59+08:00');
+
+    const response = await getDutyGroupDutyDataApi(data.value.id, {
+      startDate,
+      endDate,
+    });
+    if (response) {
+      currentAndNextDutyData.value = response;
+    }
+  } finally {
+    loading.value = false;
+  }
+};
+
 // 获取值班日历数据
 const fetchDutyData = async () => {
   if (!data.value?.id) return;
@@ -62,18 +88,18 @@ const fetchDutyData = async () => {
 
 // 获取当前值班人员信息
 const currentDutyUser = computed(() => {
-  if (!dutyData.value?.calendar) return null;
+  if (!currentAndNextDutyData.value?.calendar) return null;
 
   const today = formatDate(dayjs().format('YYYY-MM-DD'), 'YYYY-MM-DD');
-  return dutyData.value.calendar[today]?.[0] || null;
+  return currentAndNextDutyData.value.calendar[today]?.[0] || null;
 });
 
 // 获取下一班值班人员信息
 const nextDutyUser = computed(() => {
-  if (!dutyData.value?.calendar) return null;
+  if (!currentAndNextDutyData.value?.calendar) return null;
 
   // 获取所有日期
-  const dates = Object.keys(dutyData.value.calendar).sort();
+  const dates = Object.keys(currentAndNextDutyData.value.calendar).sort();
   // 找到今天的日期
   const today = formatDate(dayjs().format('YYYY-MM-DD'), 'YYYY-MM-DD');
   const todayIndex = dates.findIndex((date) => date > today);
@@ -83,7 +109,7 @@ const nextDutyUser = computed(() => {
     const nextDate = dates[todayIndex];
     return {
       date: nextDate,
-      user: dutyData.value.calendar[nextDate]?.[0] || null,
+      user: currentAndNextDutyData.value.calendar[nextDate]?.[0] || null,
     };
   }
 
@@ -110,6 +136,7 @@ const [Modal, modalApi] = useVbenModal({
       // 获取父组件传入的数据
       data.value = modalApi.getData<Record<string, any>>().row;
       await fetchDutyData();
+      await fetchCurrentAndNextDuty();
     }
   },
 });
