@@ -4,7 +4,8 @@
     "optTime": "Operating time"
   },
   "placeholder": {
-    "input": "Please enter"
+    "input": "Please enter",
+    "inputName": "Please enter {name}"
   },
   "formRules": {
     "required": "Required",

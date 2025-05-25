@@ -4,7 +4,8 @@
     "optTime": "操作时间"
   },
   "placeholder": {
-    "input": "请输入{label}"
+    "input": "请输入{label}",
+    "inputName": "请输入{name}"
   },
   "formRules": {
     "required": "{label}必填",

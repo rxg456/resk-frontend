@@ -335,6 +335,47 @@
         "create": "Create Duty Group",
         "delete": "Delete Duty Group"
       }
+    },
+    "alertPool": {
+      "module": "Alert Pool",
+      "menu": "Alert Pool Management",
+      "title": "Alert Pool List",
+      "columns": {
+        "name": "Alert Pool Name",
+        "resolveTimeout": "Resolve Timeout",
+        "alertmanagerInstances": "Alertmanager Instances",
+        "groupWait": "Group Wait",
+        "groupInterval": "Group Interval",
+        "repeatInterval": "Repeat Interval",
+        "groupBy": "Group By",
+        "receiver": "Receiver",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At"
+      },
+      "prompt": {
+        "resolveTimeoutHelp": "Alert resolution timeout. If an alert is not resolved within the default time, Alertmanager will automatically mark it as resolved",
+        "groupWaitHelp": "Group wait time, wait n time after receiving the first alert, and the same group alerts received during this period will be sent together",
+        "groupIntervalHelp": "Group interval n time, the subsequent batch sending interval of the same group alert",
+        "repeatIntervalHelp": "Alert repeat sending interval",
+        "alertmanagerInstances": "Please select the instance",
+        "groupBy": "Please enter the group tags, each line is an example: \nalertname\nenv",
+        "groupByFormat": "The format must be alert tag",
+        "groupByHelp": "Each line is a tag, for example: \nalertname\nenv"
+      },
+      "button": {
+        "create": "Create Alert Pool"
+      }
+    },
+    "alertSendGroup": {
+      "module": "Alert Send Group",
+      "menu": "Alert Send Group Management",
+      "title": "Alert Send Group List",
+      "columns": {
+        "name": "Alert Send Group Name"
+      },
+      "button": {
+        "create": "Create Alert Send Group"
+      }
     }
   }
 }

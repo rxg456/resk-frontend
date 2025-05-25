@@ -7,18 +7,17 @@ import { h, ref } from 'vue';
 import { POSITION, useToast } from 'vue-toastification';
 
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
-import { LucideFilePenLine, LucideLayoutList, LucideTrash2 } from '@vben/icons';
+import { LucideFilePenLine, LucideTrash2 } from '@vben/icons';
 import { formatDateTime } from '@vben/utils';
 
-import { ElButton, ElDivider } from 'element-plus';
+import { ElButton } from 'element-plus';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { deleteScrapePoolApi, getScrapePoolListApi } from '#/api';
+import { deleteAlertPoolApi, getAlertPoolListApi } from '#/api';
 import { $t } from '#/locales';
 
 import ConfigModal from './config-modal.vue';
-import ScrapeJobDrawer from './scrape-job-drawer.vue';
-import ScrapePoolDrawer from './scrape-pool-drawer.vue';
+import AlertPoolDrawer from './alert-pool-drawer.vue';
 
 const toast = useToast();
 // 使用 Map 来存储多个 popover 的引用
@@ -42,27 +41,11 @@ const formOptions: VbenFormProps = {
     {
       component: 'Input',
       fieldName: 'name',
-      label: $t('page.monitor.scrapePool.columns.name'),
+      label: $t('page.monitor.alertPool.columns.name'),
       componentProps: {
-        placeholder: $t('ui.placeholder.input'),
-        allowClear: true,
-      },
-    },
-    {
-      component: 'Input',
-      fieldName: 'remoteWriteUrl',
-      label: $t('page.monitor.scrapePool.columns.remoteWriteUrl'),
-      componentProps: {
-        placeholder: $t('ui.placeholder.input'),
-        allowClear: true,
-      },
-    },
-    {
-      component: 'Input',
-      fieldName: 'remoteReadUrl',
-      label: $t('page.monitor.scrapePool.columns.remoteReadUrl'),
-      componentProps: {
-        placeholder: $t('ui.placeholder.input'),
+        placeholder: $t('ui.placeholder.inputName', {
+          name: $t('page.monitor.alertPool.columns.name'),
+        }),
         allowClear: true,
       },
     },
@@ -88,12 +71,10 @@ const gridOptions: VxeGridProps = {
   proxyConfig: {
     ajax: {
       query: async ({ page }, formValues) => {
-        return await getScrapePoolListApi({
+        return await getAlertPoolListApi({
           page: page.currentPage,
           pageSize: page.pageSize,
           name: formValues.name,
-          remoteWriteUrl: formValues.remoteWriteUrl,
-          remoteReadUrl: formValues.remoteReadUrl,
         });
       },
     },
@@ -101,52 +82,56 @@ const gridOptions: VxeGridProps = {
 
   columns: [
     {
-      title: $t('page.monitor.scrapePool.columns.name'),
+      title: $t('page.monitor.alertPool.columns.name'),
       field: 'name',
       width: 240,
     },
     {
-      title: $t('page.monitor.scrapePool.columns.scrapeInterval'),
-      field: 'scrapeInterval',
-      slots: { default: 'scrapeInterval' },
+      title: $t('page.monitor.alertPool.columns.resolveTimeout'),
+      field: 'resolveTimeout',
+      width: 120,
+    },
+
+    {
+      title: $t('page.monitor.alertPool.columns.groupWait'),
+      field: 'groupWait',
       width: 120,
     },
     {
-      title: $t('page.monitor.scrapePool.columns.scrapeTimeout'),
-      field: 'scrapeTimeout',
-      slots: { default: 'scrapeTimeout' },
+      title: $t('page.monitor.alertPool.columns.groupInterval'),
+      field: 'groupInterval',
       width: 120,
     },
     {
-      title: $t('page.monitor.scrapePool.columns.remoteWriteUrl'),
-      field: 'remoteWriteUrl',
-      width: 360,
+      title: $t('page.monitor.alertPool.columns.repeatInterval'),
+      field: 'repeatInterval',
+      width: 120,
     },
     {
-      title: $t('page.monitor.scrapePool.columns.remoteReadUrl'),
-      field: 'remoteReadUrl',
-      width: 360,
-    },
-    {
-      title: $t('page.monitor.scrapePool.columns.prometheusInstances'),
-      field: 'prometheusInstances',
-      slots: { default: 'prometheusInstances' },
+      title: $t('page.monitor.alertPool.columns.alertmanagerInstances'),
+      field: 'alertmanagerInstances',
+      slots: { default: 'alertmanagerInstances' },
       width: 240,
     },
     {
-      title: $t('page.monitor.scrapePool.columns.externalLabels'),
-      field: 'externalLabels',
-      slots: { default: 'externalLabels' },
-      width: 240,
+      title: $t('page.monitor.alertPool.columns.groupBy'),
+      field: 'groupBy',
+      slots: { default: 'groupBy' },
+      width: 200,
     },
     {
-      title: $t('page.monitor.scrapePool.columns.createdAt'),
+      title: $t('page.monitor.alertPool.columns.receiver'),
+      field: 'receiver',
+      width: 200,
+    },
+    {
+      title: $t('page.monitor.alertPool.columns.createdAt'),
       field: 'createdAt',
       slots: { default: 'createdAt' },
       width: 200,
     },
     {
-      title: $t('page.monitor.scrapePool.columns.updatedAt'),
+      title: $t('page.monitor.alertPool.columns.updatedAt'),
       field: 'updatedAt',
       slots: { default: 'updatedAt' },
       width: 200,
@@ -182,7 +167,7 @@ function openConfigModal(instance: any) {
 async function handleDelete(row: any) {
   row.pending = true;
   try {
-    await deleteScrapePoolApi(row.id);
+    await deleteAlertPoolApi(row.id);
   } catch {
     toast.error($t('ui.notification.delete_failed'), {
       timeout: 2000,
@@ -195,7 +180,7 @@ async function handleDelete(row: any) {
 }
 
 const [PoolDrawer, poolDrawerApi] = useVbenDrawer({
-  connectedComponent: ScrapePoolDrawer,
+  connectedComponent: AlertPoolDrawer,
   onClosed() {
     const data = poolDrawerApi.getData();
     if (data.needRefresh) {
@@ -204,16 +189,6 @@ const [PoolDrawer, poolDrawerApi] = useVbenDrawer({
   },
 });
 
-const [JobDrawer, jobDrawerApi] = useVbenDrawer({
-  connectedComponent: ScrapeJobDrawer,
-});
-
-function openJobDrawer(row: any) {
-  jobDrawerApi.setData({
-    row,
-  });
-  jobDrawerApi.setState({ class: 'w-full', placement: 'right' }).open();
-}
 // 打开抽屉 创建/编辑
 function openPoolDrawer(create: boolean, row?: any) {
   poolDrawerApi.setData({
@@ -236,21 +211,18 @@ function handleCreate() {
 
 <template>
   <Page auto-content-height>
-    <Grid :table-title="$t('page.monitor.scrapePool.menu')">
+    <Grid :table-title="$t('page.monitor.alertPool.title')">
       <template #toolbar-tools>
         <ElButton
           class="mr-2"
-          v-permission="['monitor:scrape-pool:create']"
+          v-permission="['monitor:alert-pool:create']"
           type="primary"
           @click="handleCreate"
         >
-          {{ $t('page.monitor.scrapePool.button.create') }}
+          {{ $t('page.monitor.alertPool.button.create') }}
         </ElButton>
       </template>
-
-      <template #scrapeInterval="{ row }"> {{ row.scrapeInterval }}s </template>
-      <template #scrapeTimeout="{ row }"> {{ row.scrapeTimeout }}s </template>
-      <template #externalLabels="{ row }">
+      <template #groupBy="{ row }">
         <!-- popper-style 设置width为 max-content 根据内容自适应宽度，popover 可能会超出屏幕宽度 设置max-width为500px限制一下 -->
         <el-popover
           placement="right"
@@ -260,22 +232,22 @@ function handleCreate() {
           <template #reference>
             <div>
               <div
-                v-for="(label, index) in row.externalLabels.slice(0, 2)"
+                v-for="(label, index) in row.groupBy.slice(0, 2)"
                 :key="label"
                 class="mb-1"
               >
                 <el-tag type="primary" size="large">
                   {{ label }}
                 </el-tag>
-                <br v-if="index < Math.min(1, row.externalLabels.length - 1)" />
+                <br v-if="index < Math.min(1, row.groupBy.length - 1)" />
               </div>
-              <div v-if="row.externalLabels.length > 2">
-                +{{ row.externalLabels.length - 2 }}...
+              <div v-if="row.groupBy.length > 2">
+                +{{ row.groupBy.length - 2 }}...
               </div>
             </div>
           </template>
           <div>
-            <div v-for="label in row.externalLabels" :key="label" class="mb-1">
+            <div v-for="label in row.groupBy" :key="label" class="mb-1">
               <el-tag type="primary" size="large">
                 {{ label }}
               </el-tag>
@@ -284,7 +256,7 @@ function handleCreate() {
         </el-popover>
       </template>
 
-      <template #prometheusInstances="{ row }">
+      <template #alertmanagerInstances="{ row }">
         <el-popover
           :ref="(el: any) => setPopoverRef(el, `${row.id}`)"
           placement="right"
@@ -294,7 +266,10 @@ function handleCreate() {
           <template #reference>
             <div>
               <div
-                v-for="(instance, index) in row.prometheusInstances.slice(0, 2)"
+                v-for="(instance, index) in row.alertmanagerInstances.slice(
+                  0,
+                  2,
+                )"
                 :key="instance.host_id"
                 class="mb-1"
               >
@@ -322,17 +297,19 @@ function handleCreate() {
                 </el-tag>
                 {{ instance.host_ip }}
                 <br
-                  v-if="index < Math.min(1, row.prometheusInstances.length - 1)"
+                  v-if="
+                    index < Math.min(1, row.alertmanagerInstances.length - 1)
+                  "
                 />
               </div>
-              <div v-if="row.prometheusInstances.length > 2">
-                +{{ row.prometheusInstances.length - 2 }}...
+              <div v-if="row.alertmanagerInstances.length > 2">
+                +{{ row.alertmanagerInstances.length - 2 }}...
               </div>
             </div>
           </template>
           <div>
             <div
-              v-for="instance in row.prometheusInstances"
+              v-for="instance in row.alertmanagerInstances"
               :key="instance.host_id"
               class="mb-1"
             >
@@ -381,16 +358,9 @@ function handleCreate() {
       </template>
       <template #action="{ row }">
         <ElButton
-          type="success"
-          link
-          :icon="h(LucideLayoutList)"
-          @click="openJobDrawer(row)"
-        />
-        <ElDivider direction="vertical" />
-        <ElButton
           type="primary"
           link
-          v-permission="['monitor:scrape-pool:edit']"
+          v-permission="['monitor:alert-pool:edit']"
           :icon="h(LucideFilePenLine)"
           @click="() => handleEdit(row)"
         />
@@ -398,7 +368,7 @@ function handleCreate() {
           placement="top"
           :title="
             $t('ui.text.do_you_want_delete', {
-              moduleName: $t('page.monitor.scrapePool.module'),
+              moduleName: $t('page.monitor.alertPool.module'),
             })
           "
           :confirm-button-text="$t('ui.button.ok')"
@@ -408,7 +378,7 @@ function handleCreate() {
           <template #reference>
             <ElButton
               type="danger"
-              v-permission="['monitor:scrape-pool:delete']"
+              v-permission="['monitor:alert-pool:delete']"
               link
               :icon="LucideTrash2"
             />
@@ -420,7 +390,5 @@ function handleCreate() {
     <Modal />
     <!-- 创建/编辑 pool抽屉 -->
     <PoolDrawer />
-    <!-- 查看job列表抽屉 -->
-    <JobDrawer />
   </Page>
 </template>
