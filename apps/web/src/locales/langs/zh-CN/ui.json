@@ -5,7 +5,8 @@
   },
   "placeholder": {
     "input": "请输入{label}",
-    "inputName": "请输入{name}"
+    "inputName": "请输入{name}",
+    "select": "请选择"
   },
   "formRules": {
     "required": "{label}必填",
@@ -71,5 +72,10 @@
   "text": {
     "do_you_want_delete": "你是否要删除掉该{moduleName}？",
     "unknown": "未知"
+  },
+  "rules": {
+    "name": "只能包含大小写字母和-字符，必须以字母开头和结尾",
+    "name_length": "至少需要2个字符",
+    "name_max_length": "不能超过63个字符"
   }
 }

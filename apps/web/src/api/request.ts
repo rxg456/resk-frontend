@@ -3,6 +3,8 @@
  */
 import type { RequestClientOptions } from '@vben/request';
 
+import { POSITION, useToast } from 'vue-toastification';
+
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
 import {
@@ -16,7 +18,7 @@ import { useAccessStore } from '@vben/stores';
 import { useAuthStore } from '#/store';
 
 import { refreshTokenApi } from './core';
-import { useToast, POSITION } from 'vue-toastification';
+
 const toast = useToast();
 
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
@@ -92,14 +94,14 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
         const { data: responseData } = response;
         // 检查原始响应中的data部分
         const originalData = responseData;
-        if (responseData['code'] === 0 && responseData['msg']) {
+        if (responseData.code === 0 && responseData.msg) {
           // 显示成功提示
-          toast.success(originalData['msg'], {
+          toast.success(originalData.msg, {
             timeout: 3000,
             position: POSITION.TOP_RIGHT,
           });
         }
-      } catch (error) {
+      } catch {
         toast.error('处理成功响应提示时出错:', {
           timeout: 5000,
           position: POSITION.TOP_RIGHT,
@@ -145,7 +147,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
         position: POSITION.TOP_CENTER,
       });
 
-      if (code == 10005) {
+      if (code === 10_005) {
         setTimeout(() => {
           doReAuthenticate();
         }, 3000);

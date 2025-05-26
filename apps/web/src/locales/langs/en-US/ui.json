@@ -5,7 +5,8 @@
   },
   "placeholder": {
     "input": "Please enter",
-    "inputName": "Please enter {name}"
+    "inputName": "Please enter {name}",
+    "select": "Please select"
   },
   "formRules": {
     "required": "Required",
@@ -69,5 +70,10 @@
   "text": {
     "do_you_want_delete": "Do you want to delete the {moduleName}?",
     "unknown": "Unknown"
+  },
+  "rules": {
+    "name": "Only lowercase letters and hyphens are allowed, and must start and end with a letter",
+    "name_length": "At least 2 characters are required",
+    "name_max_length": "Cannot exceed 63 characters"
   }
 }

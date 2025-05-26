@@ -16,8 +16,8 @@ import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { deleteAlertPoolApi, getAlertPoolListApi } from '#/api';
 import { $t } from '#/locales';
 
-import ConfigModal from './config-modal.vue';
 import AlertPoolDrawer from './alert-pool-drawer.vue';
+import ConfigModal from './config-modal.vue';
 
 const toast = useToast();
 // 使用 Map 来存储多个 popover 的引用

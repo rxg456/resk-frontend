@@ -371,10 +371,30 @@
       "menu": "Alert Send Group Management",
       "title": "Alert Send Group List",
       "columns": {
-        "name": "Alert Send Group Name"
+        "name": "Send Group Name",
+        "nameZh": "Display Name",
+        "poolId": "Alert Pool",
+        "onDutyGroupId": "On-call Duty Group",
+        "feishuQunRobotToken": "Feishu Qun Robot Token",
+        "repeatInterval": "Repeat Alert Interval",
+        "sendResolved": "Send Resolved Alert",
+        "needUpgrade": "Need Upgrade",
+        "upgradeMinutes": "Upgrade Minutes",
+        "firstUpgradeUserIds": "First Upgrade User",
+        "secondUpgradeUserIds": "Second Upgrade User",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At"
       },
       "button": {
         "create": "Create Alert Send Group"
+      },
+      "sendResolved": {
+        "1": "Enable",
+        "2": "Disable"
+      },
+      "needUpgrade": {
+        "1": "Enable",
+        "2": "Disable"
       }
     }
   }
