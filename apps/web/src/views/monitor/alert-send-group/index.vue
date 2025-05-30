@@ -38,7 +38,7 @@ const formOptions: VbenFormProps = {
       label: $t('page.monitor.alertSendGroup.columns.name'),
       componentProps: {
         placeholder: $t('ui.placeholder.input'),
-        allowClear: true,
+        clearable: true,
       },
     },
     {
@@ -57,7 +57,7 @@ const formOptions: VbenFormProps = {
         labelField: 'name',
         valueField: 'id',
         filterable: true,
-        allowClear: true,
+        clearable: true,
       },
     },
     {
@@ -78,7 +78,7 @@ const formOptions: VbenFormProps = {
         multiple: false,
         collapseTags: false,
         filterable: true,
-        allowClear: true,
+        clearable: true,
       },
     },
   ],
@@ -96,7 +96,6 @@ const gridOptions: VxeGridProps = {
   pagerConfig: {},
   rowConfig: {
     isHover: true,
-    height: 100,
   },
   stripe: true,
 

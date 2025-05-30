@@ -1,4 +1,5 @@
 export * from './alert-pool';
+export * from './alert-rule';
 export * from './alert-send-group';
 export * from './oncall-duty-group';
 export * from './oncall-duty-schedule';

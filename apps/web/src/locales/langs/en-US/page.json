@@ -333,7 +333,8 @@
       },
       "button": {
         "create": "Create Duty Group",
-        "delete": "Delete Duty Group"
+        "delete": "Delete Duty Group",
+        "edit": "Edit Duty Group"
       }
     },
     "alertPool": {
@@ -363,7 +364,9 @@
         "groupByHelp": "Each line is a tag, for example: \nalertname\nenv"
       },
       "button": {
-        "create": "Create Alert Pool"
+        "create": "Create Alert Pool",
+        "delete": "Delete Alert Pool",
+        "edit": "Edit Alert Pool"
       }
     },
     "alertSendGroup": {
@@ -386,7 +389,9 @@
         "updatedAt": "Updated At"
       },
       "button": {
-        "create": "Create Alert Send Group"
+        "create": "Create Alert Send Group",
+        "delete": "Delete Alert Send Group",
+        "edit": "Edit Alert Send Group"
       },
       "sendResolved": {
         "1": "Enable",
@@ -395,6 +400,43 @@
       "needUpgrade": {
         "1": "Enable",
         "2": "Disable"
+      }
+    },
+    "alertRule": {
+      "module": "Alert Rule",
+      "menu": "Alert Rule",
+      "title": "Alert Rule List",
+      "columns": {
+        "name": "Rule Name",
+        "poolId": "Prometheus Pool",
+        "sendGroupId": "Send Group",
+        "treeNodeId": "Service Tree",
+        "enable": "Status",
+        "severity": "Severity",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "expr": "Alert Expression",
+        "forTime": "For Time",
+        "labels": "Alert Labels",
+        "annotations": "Alert Annotations",
+        "grafanaLink": "Grafana Link"
+      },
+      "prompt": {
+        "annotationsPlaceholder": "Please enter the annotation label, each line is an example: \nenv=pord",
+        "annotationsFormat": "The annotation format must be key=value",
+        "annotationsHelp": "Provide additional information when alerting",
+        "labelsPlaceholder": "Please enter the label, each line is an example: \nenv=pord",
+        "labelsFormat": "The label format must be key=value",
+        "labelsHelp": "Used for routing and grouping",
+        "exprPlaceholder": "Please enter the alert expression",
+        "exprSuccess": "Alert expression verification passed",
+        "exprFailed": "Alert expression verification failed: {msg}\nPlease edit again",
+        "exprFailedMsg": "Alert expression verification failed"
+      },
+      "button": {
+        "create": "Create Rule",
+        "delete": "Delete Rule",
+        "edit": "Edit Rule"
       }
     }
   }

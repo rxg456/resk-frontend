@@ -26,5 +26,10 @@
   "serviceDiscoveryType": {
     "STREE_HTTP": "Stree HTTP",
     "KUBERNETES": "Kubernetes"
+  },
+  "severity": {
+    "CRITICAL": "Critical",
+    "WARNING": "Warning",
+    "INFO": "Info"
   }
 }

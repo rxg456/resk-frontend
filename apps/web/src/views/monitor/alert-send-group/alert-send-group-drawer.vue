@@ -52,7 +52,7 @@ const [Form, formApi] = useVbenForm({
         placeholder: $t('ui.placeholder.input', {
           label: $t('page.monitor.alertSendGroup.columns.name'),
         }),
-        allowClear: true,
+        clearable: true,
       },
       rules: z
         .string()
@@ -75,7 +75,7 @@ const [Form, formApi] = useVbenForm({
         placeholder: $t('ui.placeholder.input', {
           label: $t('page.monitor.alertSendGroup.columns.nameZh'),
         }),
-        allowClear: true,
+        clearable: true,
       },
       rules: z.string().min(1, {
         message: $t('ui.formRules.required', {
@@ -104,7 +104,6 @@ const [Form, formApi] = useVbenForm({
         collapseTags: true,
         filterable: true,
         clearable: true,
-        allowClear: true,
       },
       rules: z.number().min(1, {
         message: $t('ui.formRules.required', {
@@ -132,6 +131,7 @@ const [Form, formApi] = useVbenForm({
         multiple: false,
         collapseTags: true,
         filterable: true,
+        clearable: true,
       },
       rules: z.number().min(1, {
         message: $t('ui.formRules.required', {
@@ -148,7 +148,7 @@ const [Form, formApi] = useVbenForm({
         placeholder: $t('ui.placeholder.input', {
           label: $t('page.monitor.alertSendGroup.columns.repeatInterval'),
         }),
-        allowClear: true,
+        clearable: true,
       },
       rules: z.string().min(1, {
         message: $t('ui.formRules.required', {
@@ -189,7 +189,7 @@ const [Form, formApi] = useVbenForm({
         placeholder: $t('ui.placeholder.input', {
           label: $t('page.monitor.alertSendGroup.columns.upgradeMinutes'),
         }),
-        allowClear: true,
+        clearable: true,
       },
       // 只有当needUpgrade为1时才显示
       dependencies: {
@@ -224,6 +224,7 @@ const [Form, formApi] = useVbenForm({
         multiple: true,
         collapseTags: false,
         filterable: true,
+        clearable: true,
       },
       // 只有当needUpgrade为1时才显示
       dependencies: {

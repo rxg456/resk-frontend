@@ -65,7 +65,8 @@
     "update_status_success": "Update Status Success",
     "update_status_failed": "Update Status Failed",
     "no_auth": "Please select the permissions to be assigned",
-    "validate_failed": "Please check the input data"
+    "validate_failed": "Please check the input data",
+    "please_select_data": "Please select the data to be operated"
   },
   "text": {
     "do_you_want_delete": "Do you want to delete the {moduleName}?",
